@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N1 Protect – Segurança Eletrônica</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+  <a href="#servicos" onclick="closeMobileMenu()">Serviços</a>
+  <a href="#sobre" onclick="closeMobileMenu()">Sobre</a>
+  <a href="#processo" onclick="closeMobileMenu()">Como Funciona</a>
+  <a href="#depoimentos" onclick="closeMobileMenu()">Clientes</a>
+  <a href="#contato" onclick="closeMobileMenu()">Contato</a>
+</div>
+ 
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-box">N1</div>
+    <span class="logo-text">N1 <span>Protect</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#processo">Como Funciona</a></li>
+    <li><a href="#depoimentos">Clientes</a></li>
+    <li><a href="#contato" class="btn-nav">Orçamento Grátis</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+ 
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">📍 Atendemos sua região</div>
+    <h1>Segurança Eletrônica<br>para sua Casa e Empresa</h1>
+    <p>Câmeras, alarmes, portões, interfones e automação. Instalação profissional com garantia e suporte completo.</p>
+    <div class="hero-btns">
+      <a href="#contato" class="btn-white">Pedir Orçamento Grátis</a>
+      <a href="#servicos" class="btn-ghost">Ver Serviços</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-cam-box">
+      <div class="hero-cam-title"><span class="rec-dot"></span> MONITORAMENTO AO VIVO</div>
+      <div class="cam-grid">
+        <div class="cam-cell"><div class="cam-rec-dot"></div><span class="cam-cell-label">CAM 01</span></div>
+        <div class="cam-cell"><div class="cam-rec-dot"></div><span class="cam-cell-label">CAM 02</span></div>
+        <div class="cam-cell"><div class="cam-rec-dot"></div><span class="cam-cell-label">CAM 03</span></div>
+        <div class="cam-cell"><div class="cam-rec-dot"></div><span class="cam-cell-label">CAM 04</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<div class="stats-bar">
+  <div class="stat-item"><strong>+1.200</strong><span>Projetos Concluídos</span></div>
+  <div class="stat-item"><strong>15 anos</strong><span>De Experiência</span></div>
+  <div class="stat-item"><strong>98%</strong><span>Clientes Satisfeitos</span></div>
+  <div class="stat-item"><strong>24h</strong><span>Suporte Disponível</span></div>
+</div>
+ 
+<section id="servicos" class="padded">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">O que oferecemos</div>
+    <h2 class="section-title">Nossos Serviços</h2>
+    <div class="divider"></div>
+    <p class="section-desc">Soluções completas em segurança eletrônica com equipamentos de qualidade e instalação especializada.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card"><div class="service-card-bar"></div><span class="service-card-icon">📷</span><h3>Câmeras de Segurança</h3><p>Sistemas CFTV com câmeras HD e 4K, visão noturna e acesso pelo celular em tempo real.</p></div>
+    <div class="service-card"><div class="service-card-bar"></div><span class="service-card-icon">🚨</span><h3>Alarmes</h3><p>Centrais de alarme residenciais e empresariais com sensores de presença e sirene.</p></div>
+    <div class="service-card"><div class="service-card-bar"></div><span class="service-card-icon">🔔</span><h3>Interfones</h3><p>Interfones com câmera, comunicação interna e integração com smartphone.</p></div>
+    <div class="service-card"><div class="service-card-bar"></div><span class="service-card-icon">🏢</span><h3>Porteiros Eletrônicos</h3><p>Sistemas de acesso modernos com controle remoto e reconhecimento visual.</p></div>
+    <div class="service-card"><div class="service-card-bar"></div><span class="service-card-icon">🚗</span><h3>Portões Eletrônicos</h3><p>Automação de portões deslizantes, basculantes e de garagem com controle remoto.</p></div>
+    <div class="service-card"><div class="service-card-bar"></div><span class="service-card-icon">⚡</span><h3>Elétrica e Automação</h3><p>Instalações elétricas e automação residencial com controle de iluminação e energia.</p></div>
+    <div class="service-card"><div class="service-card-bar"></div><span class="service-card-icon">🔧</span><h3>Instalação e Manutenção</h3><p>Equipe técnica para instalação, manutenção preventiva e corretiva de todos os sistemas.</p></div>
+    <div class="service-card"><div class="service-card-bar"></div><span class="service-card-icon">📡</span><h3>Monitoramento 24h</h3><p>Acompanhamento remoto com alertas em tempo real no seu celular.</p></div>
+  </div>
+</section>
+ 
+<section id="sobre" class="padded">
+  <div class="about-grid">
+    <div class="about-image-area reveal">
+      <div class="about-img-box">
+        <span class="about-icon-big">🛡️</span>
+        <div class="about-tagline">Protegendo famílias e negócios<br>há mais de 15 anos</div>
+      </div>
+      <div class="about-badge-box"><strong>+1.2k</strong><span>projetos<br>concluídos</span></div>
+    </div>
+    <div class="reveal">
+      <div class="section-eyebrow">Quem somos</div>
+      <h2 class="section-title">A N1 Protect cuida da sua segurança</h2>
+      <div class="divider"></div>
+      <p class="section-desc">Somos especialistas em segurança eletrônica com mais de 15 anos de atuação. Atendemos residências, condomínios e empresas com soluções personalizadas e equipe técnica qualificada.</p>
+      <div class="about-features">
+        <div class="about-feat"><span class="feat-icon">🏅</span><div class="feat-text"><h4>Equipe Certificada</h4><p>Técnicos treinados pelos principais fabricantes do mercado.</p></div></div>
+        <div class="about-feat"><span class="feat-icon">⚙️</span><div class="feat-text"><h4>Tecnologia de Ponta</h4><p>Trabalhamos com as melhores marcas e equipamentos modernos.</p></div></div>
+        <div class="about-feat"><span class="feat-icon">✅</span><div class="feat-text"><h4>Garantia em Tudo</h4><p>Garantia em todos os serviços e suporte pós-instalação rápido.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<section id="processo" class="padded">
+  <div class="reveal">
+    <div class="section-eyebrow">Simples e rápido</div>
+    <h2 class="section-title" style="color:white">Como Funciona</h2>
+    <div class="divider" style="background:rgba(255,255,255,0.4)"></div>
+  </div>
+  <div class="steps-grid reveal">
+    <div class="step-card"><div class="step-num">1</div><h4>Entre em Contato</h4><p>WhatsApp, telefone ou formulário — você escolhe.</p></div>
+    <div class="step-card"><div class="step-num">2</div><h4>Visita Técnica</h4><p>Vamos até você avaliar o local e entender o que precisa.</p></div>
+    <div class="step-card"><div class="step-num">3</div><h4>Orçamento Grátis</h4><p>Proposta detalhada e sem compromisso.</p></div>
+    <div class="step-card"><div class="step-num">4</div><h4>Instalação</h4><p>Técnicos especializados instalam com agilidade.</p></div>
+    <div class="step-card"><div class="step-num">5</div><h4>Treinamento</h4><p>Ensinamos como usar todos os recursos.</p></div>
+    <div class="step-card"><div class="step-num">6</div><h4>Suporte Contínuo</h4><p>Manutenção preventiva e suporte sempre que precisar.</p></div>
+  </div>
+</section>
+ 
+<section id="depoimentos" class="padded">
+  <div class="reveal">
+    <div class="section-eyebrow">Quem aprova</div>
+    <h2 class="section-title">O que dizem nossos clientes</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="testimonials-grid reveal">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"Instalaram câmeras e alarme no meu comércio. Serviço impecável, equipe pontual e organizada. Sistema funcionando perfeitamente há mais de 2 anos."</p>
+      <div class="test-author"><div class="test-avatar">RS</div><div class="test-info"><h5>Roberto Silva</h5><span>Proprietário de Supermercado</span></div></div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"Instalei o portão eletrônico com acesso pelo celular. Fácil de usar, instalação limpa e o suporte pós-venda é excelente. Recomendo muito!"</p>
+      <div class="test-author"><div class="test-avatar">AC</div><div class="test-info"><h5>Ana Carvalho</h5><span>Moradora de Condomínio</span></div></div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"Câmeras de alta resolução, acesso remoto perfeito e instalação caprichada. Atenderam a empresa com todo o profissionalismo que esperávamos."</p>
+      <div class="test-author"><div class="test-avatar">FM</div><div class="test-info"><h5>Felipe Martins</h5><span>Gerente Industrial</span></div></div>
+    </div>
+  </div>
+</section>
+ 
+<section id="contato" class="padded">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="section-eyebrow">Fale conosco</div>
+      <h2 class="section-title">Solicite seu Orçamento Gratuito</h2>
+      <div class="divider"></div>
+      <p class="section-desc" style="margin-bottom:1.8rem">Nossa equipe está pronta para atender. Entre em contato e proteja o que mais importa.</p>
+      <div class="contact-items">
+        <a href="tel:+5500000000000" class="contact-item"><span class="contact-item-icon">📞</span><div class="contact-item-text"><span>Telefone</span><strong>(00) 0000-0000</strong></div></a>
+        <a href="https://wa.me/5500000000000" class="contact-item"><span class="contact-item-icon">💬</span><div class="contact-item-text"><span>WhatsApp</span><strong>(00) 9 0000-0000</strong></div></a>
+        <a href="mailto:contato@n1protect.com.br" class="contact-item"><span class="contact-item-icon">✉️</span><div class="contact-item-text"><span>E-mail</span><strong>contato@n1protect.com.br</strong></div></a>
+        <div class="contact-item"><span class="contact-item-icon">📍</span><div class="contact-item-text"><span>Endereço</span><strong>Rua Exemplo, 123 — Sua Cidade/SC</strong></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group"><label>Nome</label><input type="text" id="nome" placeholder="Seu nome completo"></div>
+          <div class="form-group"><label>Telefone</label><input type="tel" id="telefone" placeholder="(00) 00000-0000"></div>
+        </div>
+        <div class="form-group"><label>E-mail</label><input type="email" id="email" placeholder="seu@email.com"></div>
+        <div class="form-group">
+          <label>Serviço desejado</label>
+          <select id="servico">
+            <option value="">Selecione um serviço...</option>
+            <option>Câmeras de Segurança (CFTV)</option>
+            <option>Sistema de Alarmes</option>
+            <option>Interfone / Porteiro Eletrônico</option>
+            <option>Portão Eletrônico</option>
+            <option>Elétrica e Automação</option>
+            <option>Manutenção</option>
+            <option>Pacote Completo</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Mensagem (opcional)</label><textarea id="mensagem" rows="3" placeholder="Descreva sua necessidade..."></textarea></div>
+        <button class="btn-submit" onclick="submitForm()">Enviar Solicitação →</button>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="icon">✅</div>
+        <h3>Mensagem Enviada!</h3>
+        <p>Entraremos em contato em até 2 horas úteis. Obrigado pela preferência!</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo"><a href="#" class="logo"><div class="logo-box">N1</div><span class="logo-text">N1 Protect</span></a></div>
+      <p>Especialistas em segurança eletrônica com mais de 15 anos de experiência. Protegemos o que você mais valoriza.</p>
+    </div>
+    <div class="footer-col"><h5>Serviços</h5><ul><li><a href="#">Câmeras CFTV</a></li><li><a href="#">Alarmes</a></li><li><a href="#">Interfones</a></li><li><a href="#">Portões</a></li><li><a href="#">Automação</a></li></ul></div>
+    <div class="footer-col"><h5>Empresa</h5><ul><li><a href="#">Sobre Nós</a></li><li><a href="#">Como Funciona</a></li><li><a href="#">Depoimentos</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div class="footer-col"><h5>Horários</h5><ul><li><a href="#">Seg–Sex: 8h às 18h</a></li><li><a href="#">Sábado: 8h às 12h</a></li><li><a href="#">Emergência 24h</a></li><li><a href="#">Orçamento Grátis</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 N1 Protect. Todos os direitos reservados.</p>
+    <div class="social-links">
+      <a href="#" class="social-link">in</a>
+      <a href="#" class="social-link">ig</a>
+      <a href="#" class="social-link">fb</a>
+    </div>
+  </div>
+</footer>
+ 
+<a href="https://wa.me/5500000000000" class="whatsapp-float" title="WhatsApp">💬</a>
+ 
+<script>
+  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+ 
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+ 
+  const tel = document.getElementById('telefone');
+  if (tel) {
+    tel.addEventListener('input', e => {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length <= 10) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+      else v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+      e.target.value = v;
+    });
+  }
+ 
+  function submitForm() {
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const servico = document.getElementById('servico').value;
+    if (!nome || !email || !servico) { alert('Preencha pelo menos Nome, E-mail e Serviço.'); return; }
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('visible');
+  }
+ 
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--blue)' : ''; });
+  });
+</script>
+</body>
+</html>
