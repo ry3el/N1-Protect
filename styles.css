@@ -39,22 +39,29 @@
 }
 
 /* PRELOADER */
+/* Bloqueia o scroll da página enquanto carrega */
+body.loading {
+  overflow: hidden;
+}
+
 .preloader {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #ffffff; /* Cor de fundo do seu site */
+  background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); /* Efeito suave */
+  /* Transição suave para subir */
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-.preloader.hidden {
-  transform: translateY(-100%); /* O efeito de deslizar para cima */
+/* Estado quando a animação de saída é disparada */
+.preloader.fade-out {
+  transform: translateY(-100%);
 }
 
 .loader-content {
