@@ -15,7 +15,29 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Open Sans', sans-serif; color: var(--text); background: var(--white); }
- 
+
+/* Customização da Barra de Rolagem (Geral e Abas) */
+::-webkit-scrollbar {
+    width: 8px; /* Vertical */
+    height: 8px; /* Horizontal */
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color); 
+}
+::-webkit-scrollbar-thumb {
+    background: #343a40; /* Cor cinza escuro para combinar */
+    border-radius: 10px;
+    border: 2px solid var(--bg-color); /* Cria um efeito de margem */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary); /* Fica azul N1 Protect ao interagir */
+}
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #343a40 var(--bg-color);
+}
+
+
   /* NAV */
   nav {
     position: sticky; top: 0; z-index: 100;
