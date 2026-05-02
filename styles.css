@@ -38,6 +38,58 @@
     scrollbar-color: #343a40 #0f1115;
 }
 
+/* PRELOADER */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* Cor de fundo do seu site */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); /* Efeito suave */
+}
+
+.preloader.hidden {
+  transform: translateY(-100%); /* O efeito de deslizar para cima */
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column; /* Empilha o spinner e o texto verticalmente */
+  align-items: center;    /* Centraliza os itens horizontalmente */
+  justify-content: center; /* Centraliza os itens verticalmente */
+  gap: 15px;              /* Adiciona um espaçamento bonito entre o spinner e o texto */
+}
+
+/* Opcional: Ajuste o estilo do texto para ficar mais elegante */
+.loader-content p {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif; /* A mesma fonte do resto do seu site */
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #333; /* Use a cor principal da sua marca aqui */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
   /* NAV */
   nav {
