@@ -219,6 +219,19 @@ body.loading {
   .test-info h5 { font-size: 0.88rem; font-weight: 700; color: var(--text); }
   .test-info span { font-size: 0.75rem; color: var(--gray); }
  
+.test-avatar img {
+    width: 100%;       /* Faz a imagem ocupar todo o espaço do container */
+    height: 100%;      /* Mantém a altura proporcional */
+    object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+}
+
+/* Opcional: Se você quiser remover o fundo colorido que existia atrás das siglas */
+.test-avatar {
+    background: none !important; 
+    overflow: hidden; /* Importante se o seu avatar for redondo */
+    border-radius: 50%; /* Se o seu design usa círculos, mantenha isso */
+}
+
   /* CONTACT */
   #contato { background: var(--white); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
