@@ -31,16 +31,23 @@
     document.querySelectorAll('.nav-links a').forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--blue)' : ''; });
   });
 
-window.addEventListener('load', function() {
+// Adiciona a classe 'loading' ao body imediatamente
+document.body.classList.add('loading');
+
+window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   
-  // Adiciona a classe 'hidden' após um pequeno delay para garantir que tudo carregou
+  // Garantimos um tempo mínimo (ex: 600ms) para que, se o site 
+  // carregar instantaneamente, o usuário ainda veja uma animação rápida 
+  // em vez de um "pulo" visual estranho.
   setTimeout(() => {
-    preloader.classList.add('hidden');
+    preloader.classList.add('fade-out');
+    document.body.classList.remove('loading');
     
-    // Opcional: remove o elemento do DOM após a animação terminar
+    // Remove o preloader do DOM após a animação de transição (800ms no CSS)
     setTimeout(() => {
       preloader.style.display = 'none';
-    }, 800); // Deve ser o mesmo tempo da transição no CSS
-  }, 500); // 500ms de tempo mínimo de exibição
+    }, 800);
+    
+  }, 600); 
 });
