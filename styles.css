@@ -23,7 +23,7 @@
     height: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: none; 
+    background: transparent; 
 }
 ::-webkit-scrollbar-thumb {
     background: #343a40;
@@ -35,7 +35,7 @@
 }
 * {
     scrollbar-width: thin;
-    scrollbar-color: #343a40 #0f1115;
+    scrollbar-color: transparent #0f1115;
 }
 
 
