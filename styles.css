@@ -15,26 +15,27 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Open Sans', sans-serif; color: var(--text); background: var(--white); }
+ 
 
-/* Customização da Barra de Rolagem (Geral e Abas) */
+/* SCROLLBAR */
 ::-webkit-scrollbar {
-    width: 8px; /* Vertical */
-    height: 8px; /* Horizontal */
+    width: 7px;
+    height: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--bg-color); 
+    background: #0f1115; 
 }
 ::-webkit-scrollbar-thumb {
-    background: #343a40; /* Cor cinza escuro para combinar */
+    background: #343a40;
     border-radius: 10px;
-    border: 2px solid var(--bg-color); /* Cria um efeito de margem */
+    border: 2px solid #0f1115;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary); /* Fica azul N1 Protect ao interagir */
+    background: #007bff;
 }
 * {
     scrollbar-width: thin;
-    scrollbar-color: #343a40 var(--bg-color);
+    scrollbar-color: #343a40 #0f1115;
 }
 
 
