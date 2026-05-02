@@ -30,3 +30,17 @@
     document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
     document.querySelectorAll('.nav-links a').forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--blue)' : ''; });
   });
+
+window.addEventListener('load', function() {
+  const preloader = document.getElementById('preloader');
+  
+  // Adiciona a classe 'hidden' após um pequeno delay para garantir que tudo carregou
+  setTimeout(() => {
+    preloader.classList.add('hidden');
+    
+    // Opcional: remove o elemento do DOM após a animação terminar
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, 800); // Deve ser o mesmo tempo da transição no CSS
+  }, 500); // 500ms de tempo mínimo de exibição
+});
