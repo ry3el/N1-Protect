@@ -95,8 +95,9 @@ body.loading {
   .loading-text span { color: var(--gray); }
 
 .logo-loading {
-  width: 10px;
-  height: auto;
+  width: 10px !important;
+  max-width: 10px !important;
+  height: auto !important;
   border-radius: 50%;
   animation: pulse 1.8s ease-in-out infinite;
   margin-bottom: 20px;
