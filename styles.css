@@ -83,6 +83,14 @@ body.loading {
   font-size: 14px;
 }
 
+.loading-logo {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+  animation: pulse 1.8s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
 .loading-text {
   display: flex;
   flex-direction: column;
@@ -94,13 +102,6 @@ body.loading {
   .loading-text { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.15rem; color: #619efa; }
   .loading-text span { color: var(--gray); }
 
-.loading-logo {
-  width: 100px;
-  height: auto;
-  border-radius: 50%;
-  animation: pulse 1.8s ease-in-out infinite;
-  margin-bottom: 20px;
-}
 
 /* --- A Animação @keyframes Pulse --- */
 @keyframes pulse {
