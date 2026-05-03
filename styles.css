@@ -83,11 +83,48 @@ body.loading {
   font-size: 14px;
 }
 
+.loading-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+  .loading-text { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.15rem; color: #619efa; }
+  .loading-text span { color: var(--gray); }
+
+.logo-loading {
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+  animation: pulse 1.8s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+/* --- A Animação @keyframes Pulse --- */
+@keyframes pulse {
+  0% {
+    transform: scale(0.95); /* Começa ligeiramente menor */
+    opacity: 0.8;          /* Mais transparente */
+  }
+  
+  50% {
+    transform: scale(1.05); /* Expande um pouco */
+    opacity: 1;             /* Totalmente visível */
+  }
+  
+  100% {
+    transform: scale(0.95); /* Volta ao tamanho inicial */
+    opacity: 0.8;          /* Transparência volta */
+  }
+}
+
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #333; /* Use a cor principal da sua marca aqui */
+  border: 1px solid var(--white);
+  border-top: 5px solid #619efa; /* Use a cor principal da sua marca aqui */
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
