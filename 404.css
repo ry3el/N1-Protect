@@ -5,6 +5,27 @@ body {
   overflow:hidden
 }
 
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0f1115; 
+}
+::-webkit-scrollbar-thumb {
+    background: #343a40;
+    border-radius: 10px;
+    border: 2px solid #0f1115;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #007bff;
+}
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #343a40 #0f1115;
+}
+
   nav {
     position: sticky; top: 0; z-index: 100;
     background: var(--white);
