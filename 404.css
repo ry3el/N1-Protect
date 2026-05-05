@@ -1,3 +1,17 @@
+  :root {
+    --blue: #1a5ccc;
+    --blue-dark: #1348a8;
+    --blue-light: #e8f0fd;
+    --blue-mid: #3a7bd5;
+    --white: #ffffff;
+    --off-white: #f5f7fa;
+    --gray: #6b7280;
+    --gray-light: #e5e7eb;
+    --text: #1f2937;
+    --shadow: 0 2px 12px rgba(26,92,204,0.10);
+    --shadow-card: 0 4px 18px rgba(0,0,0,0.08);
+  }
+
 body {
   background: #00E7DC;
   margin:0; 
