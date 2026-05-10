@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portões Eletrônicos – N1 Protect</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a5ccc;
+    --blue-dark: #1348a8;
+    --blue-light: #e8f0fd;
+    --blue-mid: #3a7bd5;
+    --white: #ffffff;
+    --off-white: #f5f7fa;
+    --gray: #6b7280;
+    --gray-light: #e5e7eb;
+    --text: #1f2937;
+    --shadow: 0 2px 12px rgba(26,92,204,0.10);
+    --shadow-card: 0 4px 18px rgba(0,0,0,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Open Sans', sans-serif; color: var(--text); background: var(--white); }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    border-bottom: 2px solid var(--blue);
+    box-shadow: 0 2px 8px rgba(26,92,204,0.08);
+    padding: 0 5%; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-box { background: var(--blue); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; padding: 5px 10px; border-radius: 4px; letter-spacing: 1px; }
+  .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--text); }
+  .logo-text span { color: var(--blue); }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
+  .btn-nav { background: var(--blue); color: var(--white) !important; padding: 8px 18px; border-radius: 5px; transition: background 0.2s !important; }
+  .btn-nav:hover { background: var(--blue-dark) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; }
+
+  /* HERO */
+  #hero {
+    background: #32a852;
+    color: var(--white); padding: 70px 5% 60px;
+    display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
+    min-height: 420px; position: relative; overflow: hidden;
+  }
+  #hero::before { content:''; position:absolute; right:-80px; top:-80px; width:400px; height:400px; border-radius:50%; background:rgba(255,255,255,0.06); pointer-events:none; }
+  #hero::after { content:''; position:absolute; right:120px; bottom:-120px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; }
+  .hero-content { flex: 1; min-width: 280px; position: relative; z-index: 1; }
+  .breadcrumb { font-size: 0.78rem; opacity: 0.7; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .breadcrumb a { color: var(--white); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { opacity: 0.5; }
+  .hero-tag { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.2rem; }
+  .hero-content h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+  .hero-content p { font-size: 1rem; line-height: 1.7; opacity: 0.9; max-width: 520px; margin-bottom: 2rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-white { background: var(--white); color: var(--blue); padding: 12px 26px; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 3px 12px rgba(0,0,0,0.15); }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+  .btn-ghost { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.6); padding: 10px 26px; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: white; }
+
+  /* HERO VISUAL — painel de portão eletrônico */
+  .hero-visual { flex: 1; min-width: 240px; max-width: 360px; position: relative; z-index: 1; }
+  .gate-panel {
+    background: rgba(0,0,0,0.22);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 18px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .panel-title { font-size: 0.62rem; letter-spacing: 2.5px; text-transform: uppercase; opacity: 0.6; display: flex; align-items: center; gap: 6px; }
+  .status-dot { width: 7px; height: 7px; background: #22c55e; border-radius: 50%; animation: pulse-green 2s infinite; display: inline-block; }
+  @keyframes pulse-green { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+  .gate-visual {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .gate-door {
+    display: flex; gap: 4px; height: 60px;
+  }
+  .gate-panel-left, .gate-panel-right {
+    flex: 1; border-radius: 4px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; flex-direction: column; justify-content: space-around; padding: 6px 4px;
+  }
+  .gate-bar { height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; }
+  .gate-status-row { display: flex; align-items: center; justify-content: space-between; }
+  .gate-status-label { font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; }
+  .gate-status-val { font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 800; color: #22c55e; }
+
+  .gate-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .gate-btn {
+    padding: 8px 6px; border-radius: 6px; text-align: center;
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .gate-btn.open { background: rgba(34,197,94,0.25); color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
+  .gate-btn.close { background: rgba(239,68,68,0.2); color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
+  .gate-btn.partial { background: rgba(251,191,36,0.2); color: #fde68a; border: 1px solid rgba(251,191,36,0.25); }
+  .gate-btn.stop { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15); }
+
+  .gate-info-rows { display: flex; flex-direction: column; gap: 5px; }
+  .gate-info-row { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.07); border-radius: 5px; padding: 6px 10px; }
+  .gate-info-label { font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.75; }
+  .gate-info-badge { font-size: 0.58rem; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .gate-info-badge.ok { background: rgba(34,197,94,0.25); color: #4ade80; }
+  .gate-info-badge.on { background: rgba(59,130,246,0.25); color: #93c5fd; }
+
+  .panel-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .panel-footer span { font-size: 0.6rem; opacity: 0.5; letter-spacing: 1px; }
+  .blink-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; animation: pulse-green 1.5s infinite; }
+
+  /* SECTIONS */
+  section.padded { padding: 64px 5%; }
+  .section-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 0.4rem; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; color: var(--text); margin-bottom: 0.8rem; line-height: 1.2; }
+  .section-desc { font-size: 0.95rem; color: var(--gray); line-height: 1.7; max-width: 620px; }
+  .divider { width: 48px; height: 3px; background: var(--blue); border-radius: 2px; margin: 12px 0 16px; }
+
+  /* O QUE SÃO */
+  #oque { background: var(--off-white); }
+  .oque-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .oque-text p { font-size: 0.95rem; color: var(--gray); line-height: 1.8; margin-bottom: 1rem; }
+  .highlight-box { background: var(--blue-light); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 1.2rem 1.5rem; margin-top: 1.5rem; }
+  .highlight-box p { font-size: 0.92rem; color: var(--blue-dark); font-weight: 600; margin: 0; line-height: 1.6; }
+  .type-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 8px; padding: 1.2rem 1.4rem; display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.8rem; transition: border-color 0.2s, box-shadow 0.2s; }
+  .type-card:hover { border-color: var(--blue); box-shadow: var(--shadow-card); }
+  .type-card-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .type-card h4 { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .type-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.5; margin: 0; }
+
+  /* PARA QUE SERVE */
+  #paraqueserve { background: #32a852; }
+  .uses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+  .use-card { background: var(--off-white); border: 1px solid var(--gray-light); border-radius: 8px; padding: 1.6rem 1.4rem; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .use-card:hover { border-color: var(--blue); box-shadow: var(--shadow-card); transform: translateY(-3px); }
+  .use-card-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); border-radius: 8px 8px 0 0; transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .use-card:hover .use-card-bar { transform: scaleX(1); }
+  .use-card-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+  .use-card h3 { font-family: 'Montserrat', sans-serif; font-size: 0.98rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .use-card p { font-size: 0.83rem; color: var(--gray); line-height: 1.6; }
+
+  /* POR QUE ADQUIRIR */
+  #porqueadquirir { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 60%, #5b9bf8 100%); color: var(--white); }
+  #porqueadquirir .section-eyebrow { color: rgba(255,255,255,0.65); }
+  #porqueadquirir .section-title { color: var(--white); }
+  #porqueadquirir .section-desc { color: rgba(255,255,255,0.8); max-width: 100%; }
+  .reasons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+  .reason-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 1.8rem 1.5rem; transition: background 0.2s; }
+  .reason-card:hover { background: rgba(255,255,255,0.16); }
+  .reason-num { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; font-weight: 800; color: rgba(255,255,255,0.2); line-height: 1; margin-bottom: 0.6rem; }
+  .reason-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .reason-card p { font-size: 0.84rem; opacity: 0.82; line-height: 1.65; }
+
+  /* STATS */
+  #stats { background: var(--off-white); }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+  .stat-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 8px; padding: 1.8rem 1.4rem; text-align: center; transition: border-color 0.2s, box-shadow 0.2s; }
+  .stat-card:hover { border-color: var(--blue); box-shadow: var(--shadow-card); }
+  .stat-big { font-family: 'Montserrat', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--blue); line-height: 1; margin-bottom: 0.4rem; }
+  .stat-card p { font-size: 0.84rem; color: var(--gray); line-height: 1.5; }
+
+  /* TECNOLOGIA + FAQ */
+  #tecnologia { background: var(--white); }
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .tech-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .tech-item { display: flex; align-items: flex-start; gap: 0.9rem; padding: 1rem 1.2rem; background: var(--off-white); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; transition: background 0.2s; }
+  .tech-item:hover { background: var(--blue-light); }
+  .tech-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .tech-text h4 { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .tech-text p { font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
+  .faq-list { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 2rem; }
+  .faq-item { border: 1px solid var(--gray-light); border-radius: 8px; overflow: hidden; }
+  .faq-q { width: 100%; text-align: left; background: var(--off-white); border: none; padding: 1rem 1.2rem; font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: background 0.2s; }
+  .faq-q:hover { background: var(--blue-light); }
+  .faq-q .arrow { font-size: 0.7rem; transition: transform 0.3s; flex-shrink: 0; color: var(--blue); }
+  .faq-q.open .arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 1.2rem 1rem; font-size: 0.85rem; color: var(--gray); line-height: 1.7; background: var(--white); }
+  .faq-a.open { display: block; }
+
+  /* CTA */
+  #cta { background: #32a852; color: var(--white); padding: 64px 5%; text-align: center; }
+  #cta h2 { font-family: 'Montserrat', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 1rem; }
+  #cta p { font-size: 1rem; opacity: 0.9; max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; }
+  .cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer { background: #000; color: rgba(255,255,255,0.85); padding: 3rem 5% 1.5rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+  .footer-logo { margin-bottom: 0.8rem; }
+  .footer-logo .logo-text { color: var(--white); }
+  .footer-brand p { font-size: 0.82rem; line-height: 1.7; color: rgba(255,255,255,0.6); }
+  .footer-col h5 { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col ul li a { font-size: 0.82rem; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-text { font-size: 0.82rem; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+  .social-links { display: flex; gap: 0.6rem; }
+  .social-link { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.6); text-decoration: none; transition: all 0.2s; }
+  .social-link:hover { border-color: white; color: white; background: rgba(255,255,255,0.08); }
+
+  /* WHATSAPP */
+  .whatsapp-float { position: fixed; bottom: 24px; right: 24px; background: #25d366; color: white; font-size: 1.5rem; width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px rgba(37,211,102,0.45); text-decoration: none; z-index: 99; transition: transform 0.2s; }
+  .whatsapp-float:hover { transform: scale(1.08); }
+
+  /* MOBILE MENU */
+  .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.98); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 1.8rem; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--blue); }
+  .mobile-close { position: absolute; top: 20px; right: 24px; font-size: 1.6rem; background: none; border: none; cursor: pointer; color: var(--gray); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .oque-grid, .tech-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .hero-visual { display: none; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+  <a href="../inicio" onclick="closeMobileMenu()">Início</a>
+  <a href="../inicio#servicos" onclick="closeMobileMenu()">Serviços</a>
+  <a href="../inicio#sobre" onclick="closeMobileMenu()">Sobre</a>
+  <a href="../inicio#contato" onclick="closeMobileMenu()">Contato</a>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="../inicio/#" class="logo" style="display: flex; align-items: center; text-decoration: none;">
+    <div style="display: flex; align-items: center; margin-bottom: 0;">
+      <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAMAAABIw9uxAAADAFBMVEUAAAAAAAD///////////8AAAAAAQBHcEwBAQEBAgIAAAIAAAABAAAAAgABAQH+/v4AAAD///////8BAQH+/v4BAQH////+/v/////+/v4BAQH9/f3+/v7///8CAgL+/f3+/v7+/v7+/v79/f39/fz9/f329vb8/Pz9/f39/f4BAQH7+/v9/f38/PwDAwMHBwcFBAT9/f0BAQH+/v4cHBsFBgUCAgL+/v4PDw77+/oMDAsMDAz8/PskJCTp6ekKCgoEBATl5OUXFxfq6eoGBgUSERHo5+cXFxbPzs48PDz8+/vr6+smJiUSExL6+fnHx8fd3d0FBQUsLCsFBgXi4uMdHR37+/slJSVjZGMqKiq5ubni4uItLS3R0dHR0dEDAwP7+/seHh7V1dXm5uUPDw8WFxbt7e1SUlJ2dnXDw8Onp6dISEdPT04NDQ1ISEi7u7vc3N0FBQW1tbUzMzMKCwrKyspHR0c2NjW0tLT8/PylpqUoKCjW1tZbW1tXV1fFxMSzs7Pg4OA+PT1HR0dfX1+WlpbQz8/29fUxMTE1NTUxMTC5urnu7u6JiYmrq6sbGxsUFBRKSkqFhYVYWFiop6fAwcHW1dUuLi2hoaGIiYk+Pj6Li4toZ2eEhIQkJCRAQD+np6fg4OD6+vk1NTU8Ozt2dnampqaTk5I+Pj6Xl5ciIiKysbFlZWWOjo1+fn6srKzExMRqammcnJxqampQUFDMzMzy8vF+fn6bm5tvbm6lpaRtbW1NTk1+fn5ycnJbWlpjYmJcXFx/f3+ioqKYmJg/Pz+UlZR3d3fb3Nu7u7tycnKRkZC5ubi+vr+FhYXf397j4uOtrKxMS0uJiYmMjYxjY2OBgYHPz85VVVR1dXW9vbxbW1qSkpJEREN/f39oaGh0dHTHx8fo6Oc5OTmam5qZmJh4eHjIyMhlZGT39vZsbGuzsrIaGxqgoaCBgYENDg3R0dGFhYUtLS3Dw8NbW1r8/PxOT02CgoGmpqYEBAPr6+tFRkR+f37e3t40NTQXGBe9shT3AAABAHRSTlP+/AIDAf3+AP7+/vv+/vkI+wQF9w31BgcCEP0REwn9FQsMGiMYDh0mIB3yMSkt/vj5Ne8C8/XqBvg57PI+8kP1+z7rLO70MvVF2QRM5e1DUVfj8fI560fsxN9OXOljbudM5YUl3uQnztVue+fm5NRbTtx+59RaytqZUG68StnjeXJl5t7MuTtozeG3iGO+kdvPnanDXmYy1pN2sbSthcrTnm5Z8O3ESqq+n9RnuMq9hojUrZ/ZfFexh8u9wbLUfKHkuqGpeKWUincytohAmtOQGqvAlKLYx5GPmausbOyTk6klfMdazGuih3rguMhAX6+jUKe+eIlW5dKOqT4mvm5/BDVXmwAAIABJREFUeNrs291LXPkdx/EzM53T30Hn2QdmdJzxqTqrRu24qKk2UhApSSREYgmGIEKpS0IuGtgmFxqSRmwhuxfdi13oXtQkpSxk2WShWbAIS3MjhSqhNYKQm0BYqH9Ae9nf7zzN70y0T7tsN8n7BYn+5hxPJsbv5/cY49sAXlsG3wKAAABAAAAgAAAQAAAIAAAEAAACAAABAIAAAEAAACAAABAAAAgAAAQAAAIAAAEAgAAAQAAAIAAAEAAACAAABAAAAgAAAQCAAABAAAAgAAAQAAAIAAAEAAACAAABAIAAAEAAACAAABAAAAEAgAAAQAAAIAAAEAAACAAABAAAAgAAAQCAAABAAAAgAAAQAAAIAAAEAAACAAABAIAAAEAAACAAABAAAAgAAAQAAAIAAAEAgAAAQAAAIAAAEAAACAAABAAAAgAAAQCAAABAAAAgAAAQAAABAIAAAEAAACAAABAAAAgAAAQAAAIAAAEAgAAAQAAAIAAAEAAACAAABAAAAgAAAQCAAABAAAAgAAAQAAAIAAAEAAACAAABAIAAAEAAACAAABAAAAgAAAQAAAIAAAEAgAAAQAAAIAAAEAAAAQCAAABAAAAgAAAQAAAIAAAEAAACAAABAIAAAEAAACAAABAAAAgAAAQAAAIAAAEAgAAAQAAAIAAAEAAACAAABAAAAgAAAQCAAABAAAAgAAAQAAAIAAAEAAACAAABAIAAAEAAACAAABAAAAEAgAAAQAAAIAAAEAAACAAABAAAAgAAAQCAAABAAAAgAAAQAAAIAAAEAAACAAABAIAAAEAAACAAABAA+Mb51mH41hAAeCXrPRxJpRsa8/nWzmy2udBRKnVL7S75aamtrVBobsrWFfONDelUJBIOkwkEAF6+jr1cDkciKVXuiXyxtS6bbSq0dXf1jR5/eGtzYfsLaX//+fMtZUNZ3NjY2vpYWllZeXTlz/d/v3b91PdH+3rbSzISmrKdrcViws6EspsJfKMJAHyjevdw2Sn5RLEuW2grdfUNjh0/NXf+2rVPPvjojx9+eO/t998/e+bo5LH+zEBNMplsCUm5aC6nfkVb1MdoKBmSV2ri8XjmzZmjJ3989me/ePu9e3/660fvfnLt/PW52bHB3u62QrbVGR/YUcA3nwDA/7H0y+VIejhR7GwufKe9t2d0+vjc+ftXPv3sDw+Wfnj23JnvzczU12cyGVnS8ZqaZCgUlQxDCMNmmvI3YQgzZkrqM/tlYcgwiIZCThTEM/WZ+vo3Zr979MyJG5cePFn5zf3N6/NjPV2lQmcxMZwKkwIEAL7+Tj+cznd2dPeMzd9efbb9xfo/NpYv3hmfGumfUIUeiuaiR1SnnhMxITk1bwlV/Oo3JwAM4YSBfVH/ZRlGba3hfqEQ9oPUYEEJhWoGRqZOX/h8Y31v+9nqbE93oa6RGCAA8HUM9cuRVLox39nc1ju9trv/fOvvy3fGh0YmkqGWqBCqaGtrhSU/GqqEVWFbsncXbrEb+kev3oVX98KrfftF9Qz7VvmCGXNvFzFT2NfUHyRnDAOTp59+vrW/uzY/2N6RzTc48wL+oQgAfIVFH7ZX7/Ot2UKpd3D61Fs//cu9994+2b+hBjkqtlQPLSzVuwun8/e6e5cVKHih2v5ly7CB251uEd5MwDL00YGfFO6oISYJcUTlwJvjN5aePNpdu3VorC9VkQCYCBCA+db1SOVev4XUUA0I6beAeaIGgBi/Nwp8a/cAqUQoQjPXWAd/EKQM8b+bAK/MzJkAlDwPgNQbKGR4DoKO1W3hCIe0KQBqhQAqONhzUQrA7f6/FuFMFdUBiV8fQ/iCX5+h5OoYoIDI0eTNg1RJIrBuoAAAAA==' style="width: 50px; height: auto; display: block;" alt="Logo N1 Protect"/>
+    </div>
+    <span class="logo-text">N1 <span>Protect</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../inicio#servicos">Serviços</a></li>
+    <li><a href="../inicio#sobre">Sobre</a></li>
+    <li><a href="../inicio#processo">Como Funciona</a></li>
+    <li><a href="../inicio#depoimentos">Acompanhe-nos</a></li>
+    <li><a href="../inicio#contato" class="btn-nav">Orçamento Grátis</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="breadcrumb">
+      <a href="../inicio">Início</a>
+      <span>›</span>
+      <a href="../inicio#servicos">Serviços</a>
+      <span>›</span>
+      <span>Portões Eletrônicos</span>
+    </div>
+    <div class="hero-tag">🚗 Acesso automático com total segurança</div>
+    <h1>Portões<br>Eletrônicos<br>Residenciais e Comerciais</h1>
+    <p>Automatize seu portão deslizante, basculante ou de garagem — com controle remoto, app no celular e integração completa com câmeras e alarmes.</p>
+    <div class="hero-btns">
+      <a href="../inicio#contato" class="btn-white">Pedir Orçamento Grátis</a>
+      <a href="#oque" class="btn-ghost">Saiba Mais ↓</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="gate-panel">
+      <div class="panel-title"><span class="status-dot"></span> CONTROLE DE ACESSO · N1 PROTECT</div>
+      <div class="gate-visual">
+        <div class="gate-door">
+          <div class="gate-panel-left">
+            <div class="gate-bar"></div>
+            <div class="gate-bar"></div>
+            <div class="gate-bar"></div>
+          </div>
+          <div class="gate-panel-right">
+            <div class="gate-bar"></div>
+            <div class="gate-bar"></div>
+            <div class="gate-bar"></div>
+          </div>
+        </div>
+        <div class="gate-status-row">
+          <span class="gate-status-label">Status do portão</span>
+          <span class="gate-status-val">FECHADO ✓</span>
+        </div>
+      </div>
+      <div class="gate-controls">
+        <div class="gate-btn open">🔓 Abrir</div>
+        <div class="gate-btn close">🔒 Fechar</div>
+        <div class="gate-btn partial">↕ Parcial</div>
+        <div class="gate-btn stop">⏹ Parar</div>
+      </div>
+      <div class="gate-info-rows">
+        <div class="gate-info-row"><span class="gate-info-label">🔌 Motor</span><span class="gate-info-badge on">Ativo</span></div>
+        <div class="gate-info-row"><span class="gate-info-label">📡 Controle Remoto</span><span class="gate-info-badge ok">Conectado</span></div>
+        <div class="gate-info-row"><span class="gate-info-label">🔋 Bateria Backup</span><span class="gate-info-badge ok">Normal</span></div>
+      </div>
+      <div class="panel-footer">
+        <span>ÚLTIMA AÇÃO: AGORA</span>
+        <div class="blink-dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE SÃO -->
+<section id="oque" class="padded">
+  <div class="oque-grid">
+    <div class="oque-text reveal">
+      <div class="section-eyebrow">Entenda o produto</div>
+      <h2 class="section-title">O que é um portão eletrônico?</h2>
+      <div class="divider"></div>
+      <p>Um portão eletrônico é um sistema de automação que permite abrir e fechar portões de garagem, residências e empresas de forma automática, sem precisar sair do carro ou se deslocar até a entrada. Ele é acionado por controle remoto, aplicativo no celular, sensor de presença ou teclado de senha.</p>
+      <p>O coração do sistema é o motor de automação, que pode ser instalado em qualquer tipo de portão — deslizante, basculante ou de duas folhas. O motor é silencioso, potente e equipado com recursos de segurança como reversão automática ao detectar obstáculos.</p>
+      <p>Moderno e integrado, o portão eletrônico pode ser conectado ao sistema de câmeras e interfones da residência, permitindo verificar quem está na entrada antes de autorizar o acesso — tudo pelo celular, de qualquer lugar do mundo.</p>
+      <div class="highlight-box">
+        <p>💡 Em resumo: o portão eletrônico une praticidade e segurança — você nunca mais precisará sair do carro sob chuva, e ainda controla o acesso ao seu imóvel de onde estiver.</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-eyebrow">Tipos disponíveis</div>
+      <h3 style="font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:1.2rem;color:var(--text)">Modelos que instalamos</h3>
+      <div class="type-card">
+        <span class="type-card-icon">➡️</span>
+        <div><h4>Portão Deslizante</h4><p>Abre lateralmente sobre trilhos. Ideal para residências com pouco espaço frontal e muito utilizado em condomínios e empresas.</p></div>
+      </div>
+      <div class="type-card">
+        <span class="type-card-icon">⬆️</span>
+        <div><h4>Portão Basculante</h4><p>Abre para cima e para frente. Muito usado em garagens individuais, ocupa menos espaço lateral e tem ótima durabilidade.</p></div>
+      </div>
+      <div class="type-card">
+        <span class="type-card-icon">🔄</span>
+        <div><h4>Portão de Duas Folhas</h4><p>Abre para os dois lados como uma porta. Clássico em residências de alto padrão, com motor independente em cada folha.</p></div>
+      </div>
+      <div class="type-card">
+        <span class="type-card-icon">📱</span>
+        <div><h4>Controle por Aplicativo</h4><p>Acione o portão pelo smartphone de qualquer lugar. Receba alertas quando o portão for aberto e controle o acesso remotamente.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUE SERVE -->
+<section id="paraqueserve" class="padded">
+  <div class="reveal">
+    <div class="section-eyebrow">Aplicações práticas</div>
+    <h2 class="section-title">Para que serve um portão eletrônico?</h2>
+    <div class="divider"></div>
+    <p class="section-desc">O portão eletrônico resolve situações do dia a dia que vão muito além de simples comodidade. Veja como ele transforma a rotina e a segurança da sua casa ou empresa.</p>
+  </div>
+  <div class="uses-grid reveal">
+    <div class="use-card">
+      <div class="use-card-bar"></div>
+      <span class="use-card-icon">🚗</span>
+      <h3>Abrir a garagem sem sair do carro</h3>
+      <p>Com o controle remoto ou app, o portão abre automaticamente enquanto você ainda está no carro — prático em dias de chuva e frio.</p>
+    </div>
+    <div class="use-card">
+      <div class="use-card-bar"></div>
+      <span class="use-card-icon">🌍</span>
+      <h3>Controle remoto pelo celular</h3>
+      <p>Abra ou feche o portão de qualquer lugar do mundo pelo aplicativo. Esqueceu fechado? Basta um toque na tela do celular.</p>
+    </div>
+    <div class="use-card">
+      <div class="use-card-bar"></div>
+      <span class="use-card-icon">📦</span>
+      <h3>Autorizar entregas com segurança</h3>
+      <p>Libere o acesso para entregadores ou prestadores de serviço remotamente, verificando pelo interfone ou câmera antes de abrir.</p>
+    </div>
+    <div class="use-card">
+      <div class="use-card-bar"></div>
+      <span class="use-card-icon">🔔</span>
+      <h3>Integração com interfone e câmeras</h3>
+      <p>O portão pode ser acionado diretamente pelo interfone ou pelo sistema de câmeras, criando um controle de acesso completo e integrado.</p>
+    </div>
+    <div class="use-card">
+      <div class="use-card-bar"></div>
+      <span class="use-card-icon">👴</span>
+      <h3>Conforto para idosos e pessoas com mobilidade reduzida</h3>
+      <p>Elimina a necessidade de se deslocar até o portão, dando mais autonomia e segurança para quem tem dificuldade de locomoção.</p>
+    </div>
+    <div class="use-card">
+      <div class="use-card-bar"></div>
+      <span class="use-card-icon">🏢</span>
+      <h3>Controle de acesso empresarial</h3>
+      <p>Em empresas, o portão eletrônico pode ser integrado ao sistema de controle de ponto e acesso, registrando entradas e saídas de veículos.</p>
+    </div>
+    <div class="use-card">
+      <div class="use-card-bar"></div>
+      <span class="use-card-icon">🌙</span>
+      <h3>Segurança noturna automática</h3>
+      <p>Programe o fechamento automático do portão em determinados horários, garantindo que a entrada esteja sempre protegida durante a noite.</p>
+    </div>
+    <div class="use-card">
+      <div class="use-card-bar"></div>
+      <span class="use-card-icon">🔔</span>
+      <h3>Alertas de acesso em tempo real</h3>
+      <p>Receba notificações no celular sempre que o portão for aberto ou fechado, mantendo controle total sobre quem entra e sai do imóvel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUE ADQUIRIR -->
+<section id="porqueadquirir" class="padded">
+  <div class="reveal">
+    <div class="section-eyebrow">Motivos para investir</div>
+    <h2 class="section-title">Por que instalar um portão eletrônico?</h2>
+    <div class="divider" style="background:rgba(255,255,255,0.4)"></div>
+    <p class="section-desc">Do conforto no dia a dia até a segurança real do seu patrimônio — o portão eletrônico é um dos investimentos com melhor custo-benefício para qualquer imóvel.</p>
+  </div>
+  <div class="reasons-grid reveal">
+    <div class="reason-card">
+      <div class="reason-num">01</div>
+      <h3>Praticidade imediata no dia a dia</h3>
+      <p>Chega de sair do carro debaixo de chuva ou à noite para abrir o portão manualmente. Com um simples toque no controle, sua rotina fica muito mais cômoda e rápida.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-num">02</div>
+      <h3>Mais segurança para o seu imóvel</h3>
+      <p>Portões manuais são mais fáceis de forçar. O motor eletrônico mantém o portão firmemente fechado com trava automática, dificultando muito a ação de invasores.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-num">03</div>
+      <h3>Controle total de quem entra e sai</h3>
+      <p>Integrado ao interfone e às câmeras, você vê e fala com qualquer pessoa antes de autorizar o acesso — mesmo estando do outro lado do mundo pelo celular.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-num">04</div>
+      <h3>Valorização do imóvel</h3>
+      <p>Residências e estabelecimentos com portão eletrônico são mais valorizados no mercado. Compradores e inquilinos pagam mais por imóveis com automação e segurança.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-num">05</div>
+      <h3>Funciona mesmo sem energia elétrica</h3>
+      <p>Todos os sistemas que instalamos possuem bateria de backup que mantém o portão funcionando por horas em caso de queda de energia, sem deixar você preso.</p>
+    </div>
+    <div class="reason-card">
+      <div class="reason-num">06</div>
+      <h3>Investimento de longo prazo</h3>
+      <p>Os motores modernos têm vida útil de muitos anos com baixa manutenção. O custo de instalação é rapidamente compensado pelo conforto, segurança e valorização do imóvel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ESTATÍSTICAS -->
+<section id="stats" class="padded">
+  <div class="reveal">
+    <div class="section-eyebrow">Dados que convencem</div>
+    <h2 class="section-title">Automação de portões em números</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="stats-grid reveal">
+    <div class="stat-card">
+      <div class="stat-big">+30%</div>
+      <p>de valorização média em imóveis com portão eletrônico e sistema de segurança integrado</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-big">8h</div>
+      <p>de autonomia com a bateria de backup em caso de queda de energia elétrica</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-big">5s</div>
+      <p>é o tempo médio para abertura completa de um portão deslizante automatizado</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-big">10+</div>
+      <p>anos de vida útil média de um motor de portão com manutenção preventiva adequada</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECNOLOGIA + FAQ -->
+<section id="tecnologia" class="padded">
+  <div class="tech-grid">
+    <div class="reveal">
+      <div class="section-eyebrow">Recursos modernos</div>
+      <h2 class="section-title">O que vem no sistema que instalamos</h2>
+      <div class="divider"></div>
+      <p class="section-desc">Instalamos motores de marcas reconhecidas com tecnologia de ponta, garantia e suporte completo pós-instalação.</p>
+      <div class="tech-list">
+        <div class="tech-item"><span class="tech-icon">📱</span><div class="tech-text"><h4>Controle pelo Aplicativo</h4><p>Abra, feche e monitore o portão pelo celular de qualquer lugar, com notificações em tempo real de cada acionamento.</p></div></div>
+        <div class="tech-item"><span class="tech-icon">🔋</span><div class="tech-text"><h4>Bateria de Backup Integrada</h4><p>O sistema continua funcionando mesmo sem energia elétrica, garantindo acesso em qualquer situação de emergência.</p></div></div>
+        <div class="tech-item"><span class="tech-icon">🛡️</span><div class="tech-text"><h4>Sensor Anticolisão</h4><p>O motor detecta obstáculos e reverte automaticamente o movimento, protegendo pessoas, animais e veículos de acidentes.</p></div></div>
+        <div class="tech-item"><span class="tech-icon">🔗</span><div class="tech-text"><h4>Integração com Interfone e Câmeras</h4><p>Conectado ao videoporteiro e às câmeras, o portão pode ser acionado diretamente pela tela do interfone ou pelo app.</p></div></div>
+        <div class="tech-item"><span class="tech-icon">🔇</span><div class="tech-text"><h4>Motor Silencioso</h4><p>Tecnologia de acionamento suave e silencioso, sem trancos ou barulhos excessivos, mesmo em horários de descanso.</p></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-eyebrow">Dúvidas frequentes</div>
+      <h2 class="section-title">Perguntas sobre portões eletrônicos</h2>
+      <div class="divider"></div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Funciona com qualquer tipo de portão? <span class="arrow">▼</span></button>
+          <div class="faq-a">Na grande maioria dos casos, sim. Instalamos motores para portões deslizantes, basculantes e de duas folhas. Fazemos uma visita técnica gratuita para avaliar seu portão e indicar o motor mais adequado.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">O que acontece se faltar energia? <span class="arrow">▼</span></button>
+          <div class="faq-a">Todos os sistemas que instalamos possuem bateria de backup integrada. Em caso de queda de energia, o motor continua funcionando normalmente por até 8 horas — ou o portão pode ser aberto manualmente com a chave de desbloqueio.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Quantos controles remotos posso ter? <span class="arrow">▼</span></button>
+          <div class="faq-a">É possível cadastrar múltiplos controles remotos para o mesmo motor, sem limite fixo na maioria dos modelos. Todos os moradores podem ter o seu controle, e é simples adicionar ou remover controles quando necessário.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">O motor aguenta portões pesados? <span class="arrow">▼</span></button>
+          <div class="faq-a">Sim. Trabalhamos com motores de diferentes capacidades, de acordo com o peso e o tipo do portão. Durante a visita técnica, calculamos exatamente qual potência é necessária para o seu caso específico.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Posso controlar pelo celular? <span class="arrow">▼</span></button>
+          <div class="faq-a">Sim! Nos modelos com módulo Wi-Fi ou GSM, você controla o portão pelo aplicativo de qualquer lugar, recebe alertas de abertura e fechamento e pode compartilhar o acesso com familiares ou funcionários.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Com que frequência precisa de manutenção? <span class="arrow">▼</span></button>
+          <div class="faq-a">Recomendamos manutenção preventiva anual, que inclui lubrificação da corrente ou cremalheira, verificação dos sensores, calibração e revisão elétrica. Com manutenção regular, o motor dura 10 anos ou mais sem problemas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <h2>Automatize seu portão e tenha mais conforto e segurança.</h2>
+  <p>Solicite uma visita técnica gratuita e receba um orçamento personalizado. Instalação rápida, garantia no serviço e suporte contínuo.</p>
+  <div class="cta-btns">
+    <a href="../inicio#contato" class="btn-white">Solicitar Orçamento Grátis</a>
+    <a href="https://wa.me/5542991529344" class="btn-ghost">💬 Falar no WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo"><a href="#" class="logo">
+        <img src="../n1protectlogo2w.png" class="logo" alt="N1 Protect Logo" style="width: 40px; height: auto; justify-content: center; align-items: center;">
+        <span class="logo-text">N1 Protect</span></a>
+      </div>
+      <p>Especialistas em segurança eletrônica com anos de experiência. Protegemos o que você mais valoriza.</p>
+    </div>
+    <div class="footer-col"><h5>Serviços</h5><ul>
+      <li><a href="../services/cameras">Câmeras CFTV</a></li>
+      <li><a href="../services/alarmes">Alarmes</a></li>
+      <li><a href="../services/interfones">Interfones</a></li>
+      <li><a href="../services/portões-eletrônicos">Portões</a></li>
+      <li><a href="../services/elétrica-automação">Automação</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Empresa</h5><ul>
+      <li><a href="../inicio#sobre">Sobre Nós</a></li>
+      <li><a href="../inicio#processo">Como Funciona</a></li>
+      <li><a href="../inicio#depoimentos">Nos Acompanhe</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Horários</h5><ul>
+      <li><div class="footer-text">Seg–Sex: 8h às 18h</div></li>
+      <li><div class="footer-text">Sábado: 8h às 12h</div></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 N1 Protect. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/1009951808877132" class="social-link">
+        <img src="../facebook.png" alt="Facebook" style="width: 25px; height: auto; border-radius: 100%;">
+      </a>
+      <a href="https://www.instagram.com/n1.protect/" class="social-link">
+        <img src="../instagram.png" alt="Instagram" style="width: 25px; height: auto; border-radius: 100%;">
+      </a>
+      <a href="https://wa.me/5542991529344" class="social-link">
+        <img src="../whatsapp.png" alt="Whatsapp" style="width: 30px; height: auto; border-radius: 200%;">
+      </a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/5542991529344" class="whatsapp-float" title="WhatsApp">💬</a>
+
+<script>
+  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+    if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+  }
+
+  document.querySelector('a[href="#oque"]').addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('oque').scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
