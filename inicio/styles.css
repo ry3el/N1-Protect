@@ -294,7 +294,7 @@ body.loading {
   .form-success p { font-size: 0.88rem; color: var(--gray); }
  
   /* FOOTER */
-  footer { background: #1a2a4a; color: rgba(255,255,255,0.85); padding: 3rem 5% 1.5rem; }
+  footer { background: #02122e; color: rgba(255,255,255,0.85); padding: 3rem 5% 1.5rem; }
 
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
 
