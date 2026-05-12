@@ -219,13 +219,18 @@
     </div>
 
     <div class="form-group">
-      <label>Preferência para Contato</label>
-      <select name="retorno" id="retorno">
-        <option value="">Selecione uma opção</option>
-        <option>Whatsapp</option>
-        <option>E-mail</option>
-        <option>SMS</option>
-      </select>
+      <label>Como prefere receber nosso contato?</label>
+      <div style="display: flex; gap: 20px; margin-top: 5px;">
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="radio" name="preferencia_contato" value="WhatsApp" checked> WhatsApp
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="radio" name="preferencia_contato" value="E-mail"> E-mail
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="radio" name="preferencia_contato" value="Telefone"> Ligação
+        </label>
+      </div>
     </div>
    
     <div class="form-group">
