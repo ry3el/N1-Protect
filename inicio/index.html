@@ -217,6 +217,11 @@
         <option>Pacote Completo</option>
       </select>
     </div>
+   
+    <div class="form-group">
+      <label>Mensagem (opcional)</label>
+      <textarea name="mensagem" id="mensagem" rows="3" placeholder="Descreva sua necessidade..."></textarea>
+    </div>
 
     <div class="form-group">
       <label>Como prefere receber nosso contato?</label>
@@ -228,16 +233,11 @@
           <input type="radio" name="preferencia_contato" value="E-mail"> E-mail
         </label>
         <label style="font-weight: normal; cursor: pointer;">
-          <input type="radio" name="preferencia_contato" value="Telefone"> Ligação
+          <input type="radio" name="preferencia_contato" value="Telefone"> SMS
         </label>
       </div>
     </div>
    
-    <div class="form-group">
-      <label>Mensagem (opcional)</label>
-      <textarea name="mensagem" id="mensagem" rows="3" placeholder="Descreva sua necessidade..."></textarea>
-    </div>
-    
     <button type="button" class="btn-submit" onclick="submitForm()">Enviar Solicitação →</button>
   </form>
 
