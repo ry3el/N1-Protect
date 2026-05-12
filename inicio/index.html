@@ -169,52 +169,55 @@
   </div>
     </a>
 </section>
- 
+
 <section id="contato" class="padded">
-  <div class="contact-grid">
-    <div class="reveal">
-      <div class="section-eyebrow">Fale conosco</div>
-      <h2 class="section-title">Solicite seu Orçamento Gratuito</h2>
-      <div class="divider"></div>
-      <p class="section-desc" style="margin-bottom:1.8rem">Nossa equipe está pronta para te atender. Entre em contato e proteja o que mais importa.</p>
-      <div class="contact-items">
-        <a href="tel:+5542991529344" class="contact-item"><span class="contact-item-icon">📞</span><div class="contact-item-text"><span>Telefone</span><strong>(42) 9152-9344</strong></div></a>
-        <a href="https://wa.me/5542991529344" class="contact-item"><span class="contact-item-icon">💬</span><div class="contact-item-text"><span>WhatsApp</span><strong>(42) 99152-9344</strong></div></a>
-        <a href="mailto:n1protect.sse@gmail.com" class="contact-item"><span class="contact-item-icon">✉️</span><div class="contact-item-text"><span>E-mail</span><strong>n1protect.sse@gmail.com</strong></div></a>
-        <div class="contact-item"><span class="contact-item-icon">📍</span><div class="contact-item-text"><span>ONDE ATENDEMOS?</span><strong>União da Vitória - PR e região</strong></div></div>
+<div class="reveal">
+  <form class="contact-form" id="contactForm" action="https://formspree.io/f/mykooqon" method="POST">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" name="nome" id="nome" placeholder="Seu nome completo" required>
+      </div>
+      <div class="form-group">
+        <label>Telefone</label>
+        <input type="tel" name="telefone" id="telefone" placeholder="(00) 00000-0000">
       </div>
     </div>
-    <div class="reveal">
-      <div class="contact-form" id="contactForm">
-        <div class="form-row">
-          <div class="form-group"><label>Nome</label><input type="text" id="nome" placeholder="Seu nome completo"></div>
-          <div class="form-group"><label>Telefone</label><input type="tel" id="telefone" placeholder="(00) 00000-0000"></div>
-        </div>
-        <div class="form-group"><label>E-mail</label><input type="email" id="email" placeholder="seu@email.com"></div>
-        <div class="form-group">
-          <label>Serviço desejado</label>
-          <select id="servico">
-            <option value="">Selecione um serviço...</option>
-            <option>Câmeras de Segurança (CFTV)</option>
-            <option>Sistema de Alarmes</option>
-            <option>Interfone / Porteiro Eletrônico</option>
-            <option>Portão Eletrônico</option>
-            <option>Automação Residencial</option>
-            <option>Wi-Fi e Conectividade</option>
-            <option>Segurança Perimetral</option></option>
-            <option>Pacote Completo</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Mensagem (opcional)</label><textarea id="mensagem" rows="3" placeholder="Descreva sua necessidade..."></textarea></div>
-        <button class="btn-submit" onclick="submitForm()">Enviar Solicitação →</button>
-      </div>
-      <div class="form-success" id="formSuccess">
-        <div class="icon">✅</div>
-        <h3>Mensagem Enviada!</h3>
-        <p>Entraremos em contato em até 2 horas úteis. Obrigado pela preferência!</p>
-      </div>
+    
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" name="email" id="email" placeholder="seu@email.com" required>
     </div>
+    
+    <div class="form-group">
+      <label>Serviço desejado</label>
+      <select name="servico" id="servico" required>
+        <option value="">Selecione um serviço...</option>
+        <option>Câmeras de Segurança (CFTV)</option>
+        <option>Sistema de Alarmes</option>
+        <option>Interfone / Porteiro Eletrônico</option>
+        <option>Portão Eletrônico</option>
+        <option>Automação Residencial</option>
+        <option>Wi-Fi e Conectividade</option>
+        <option>Segurança Perimetral</option>
+        <option>Pacote Completo</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label>Mensagem (opcional)</label>
+      <textarea name="mensagem" id="mensagem" rows="3" placeholder="Descreva sua necessidade..."></textarea>
+    </div>
+    
+    <button type="button" class="btn-submit" onclick="submitForm()">Enviar Solicitação →</button>
+  </form>
+
+  <div class="form-success" id="formSuccess" style="display:none;">
+    <div class="icon">✅</div>
+    <h3>Mensagem Enviada!</h3>
+    <p>Entraremos em contato em até 2 horas úteis. Obrigado pela preferência!</p>
   </div>
+</div>
 </section>
  
 <footer>
