@@ -16,14 +16,43 @@
     });
   }
  
-  function submitForm() {
-    const nome = document.getElementById('nome').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const servico = document.getElementById('servico').value;
-    if (!nome || !email || !servico) { alert('Preencha pelo menos Nome, E-mail e Serviço.'); return; }
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('visible');
+async function submitForm() {
+  const form = document.getElementById('contactForm');
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const servico = document.getElementById('servico').value;
+
+  // Validação básica
+  if (!nome || !email || !servico) { 
+    alert('Preencha pelo menos Nome, E-mail e Serviço.'); 
+    return; 
   }
+
+  // Captura os dados do formulário
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      // Esconde o formulário e mostra o sucesso
+      form.style.display = 'none';
+      const successDiv = document.getElementById('formSuccess');
+      successDiv.style.display = 'block';
+      successDiv.classList.add('visible');
+    } else {
+      alert('Ocorreu um erro ao enviar. Tente novamente mais tarde.');
+    }
+  } catch (error) {
+    alert('Erro de conexão. Verifique sua internet.');
+  }
+}
  
   window.addEventListener('scroll', () => {
     let cur = '';
