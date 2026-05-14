@@ -162,7 +162,7 @@ body.loading {
  
   /* HERO */
   #hero {
-    background: linear-gradient(135deg, var(--blue-mid) 0%, var(--blue) 60%, #5b9bf8 100%);
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 60%, #5b9bf8 100%);
     color: var(--white); padding: 70px 5% 60px;
     display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
     min-height: 480px; position: relative; overflow: hidden;
