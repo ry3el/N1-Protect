@@ -1,4 +1,12 @@
-  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "N1 Protect",
+  "url": "https://www.n1protect.com.br"
+}
+
+function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
  
   const reveals = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver(entries => {
