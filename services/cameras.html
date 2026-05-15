@@ -273,8 +273,20 @@ button {
   .faq-q:hover { background: var(--blue-light); }
   .faq-q .arrow { font-size: 0.7rem; transition: transform 0.3s; flex-shrink: 0; color: var(--blue); }
   .faq-q.open .arrow { transform: rotate(180deg); }
-  .faq-a { display: none; padding: 0 1.2rem 1rem; font-size: 0.85rem; color: var(--gray); line-height: 1.7; background: var(--white); }
-  .faq-a.open { display: block; }
+/* Isso garante que a resposta fique escondida por padrão */
+.faq-a { 
+    display: none; 
+    padding: 1rem 1.2rem; /* Ajustado para dar respiro ao texto */
+    font-size: 0.85rem; 
+    color: var(--gray); 
+    line-height: 1.7; 
+    background: var(--white); 
+}
+
+/* Esta regra força a exibição quando a classe .open é adicionada */
+.faq-a.open { 
+    display: block !important; 
+}
  
   /* ── CTA ── */
   #cta {
