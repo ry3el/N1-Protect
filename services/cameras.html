@@ -725,31 +725,76 @@
 
   // CARROSSEL
   const slide = document.querySelector('.carousel-slide');
-const images = document.querySelectorAll('.carousel-slide img');
-const dots = document.querySelectorAll('.dot');
+  const images = document.querySelectorAll('.carousel-slide img');
+  const dots = document.querySelectorAll('.dot');
+  const container = document.querySelector('.carousel-container'); // Seleciona o container para detetar o rato
 
-let counter = 0;
-const size = 100; // Representa 100% da largura
+  let counter = 0;
+  const size = 100;
+  let autoplayTimer = null; // Guarda o temporizador do carrossel
 
-function updateCarousel() {
-    slide.style.transform = 'translateX(' + (-size * counter) + '%)';
-    
-    // Atualiza os pontos
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[counter].classList.add('active');
-}
+  function updateCarousel() {
+      if (!slide || images.length === 0) return;
+      slide.style.transform = 'translateX(' + (-size * counter) + '%)';
+      
+      dots.forEach(dot => dot.classList.remove('active'));
+      if (dots[counter]) dots[counter].classList.add('active');
+  }
 
-document.getElementById('nextBtn').addEventListener('click', () => {
-    if (counter >= images.length - 1) counter = -1;
-    counter++;
-    updateCarousel();
-});
+  function nextImage() {
+      if (images.length === 0) return;
+      if (counter >= images.length - 1) {
+          counter = 0;
+      } else {
+          counter++;
+      }
+      updateCarousel();
+  }
 
-document.getElementById('prevBtn').addEventListener('click', () => {
-    if (counter <= 0) counter = images.length;
-    counter--;
-    updateCarousel();
-});
+  function prevImage() {
+      if (images.length === 0) return;
+      if (counter <= 0) {
+          counter = images.length - 1;
+      } else {
+          counter--;
+      }
+      updateCarousel();
+  }
+
+  // Funções para controlar o temporizador automático
+  function startAutoplay() {
+      // Muda de imagem a cada 4000 milissegundos (4 segundos)
+      autoplayTimer = setInterval(nextImage, 4000); 
+  }
+
+  function stopAutoplay() {
+      clearInterval(autoplayTimer);
+  }
+
+  // Ouvintes de eventos para os botões manuais
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+        nextImage();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+        prevImage();
+    });
+  }
+
+  // Eventos para pausar ao passar o rato (Apenas se o container existir)
+  if (container) {
+      container.addEventListener('mouseenter', stopAutoplay); // Pausa quando o rato entra
+      container.addEventListener('mouseleave', startAutoplay); // Retoma quando o rato sai
+  }
+
+  // Inicia o carrossel automático assim que a página carrega
+  startAutoplay();
   
 </script>
 </body>
