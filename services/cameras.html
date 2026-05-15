@@ -116,6 +116,60 @@
   .cam-thumb:nth-child(3){ background: linear-gradient(135deg,#1a1a2a,#0d0d1a); }
   .cam-thumb-label { font-size: 0.42rem; letter-spacing: 1px; color: rgba(100,220,100,0.7); text-transform: uppercase; z-index:1; }
   .cam-thumb-dot { position:absolute; top:4px; right:4px; width:4px; height:4px; background:#ff4444; border-radius:50%; animation: blink 2.5s infinite; }
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Ajuste conforme sua necessidade */
+    margin: auto;
+    overflow: hidden; /* Esconde as imagens que não estão no foco */
+}
+
+.carousel-slide {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Velocidade do deslize */
+}
+
+.carousel-slide img {
+    width: 100%; /* Cada imagem ocupa 100% da largura do container */
+    height: auto;
+}
+
+/* Estilo das Setas */
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#prevBtn { left: 10px; }
+#nextBtn { right: 10px; }
+
+/* Estilo dos Pontos (fora da imagem) */
+.carousel-dots {
+    text-align: center;
+    padding: 15px;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #2D3965; /* Cor da sua marca */
+}
  
   /* ── SECTIONS ── */
   section.padded { padding: 64px 5%; }
