@@ -669,24 +669,20 @@ button {
  
 <a href="https://wa.me/5542991529344" class="whatsapp-float" title="WhatsApp">💬</a>
  
-<script>
   function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
- 
-  // REVEAL
+
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
- 
-  // FAQ
+
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = btn.classList.contains('open');
     document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
     if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
   }
- 
-  // Smooth scroll para ancora interna
+
   document.querySelector('a[href="#oque"]').addEventListener('click', e => {
     e.preventDefault();
     document.getElementById('oque').scrollIntoView({ behavior: 'smooth' });
