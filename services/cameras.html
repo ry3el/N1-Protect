@@ -25,7 +25,28 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Open Sans', sans-serif; color: var(--text); background: var(--white); }
- 
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0f1115; 
+}
+::-webkit-scrollbar-thumb {
+    background: #343a40;
+    border-radius: 10px;
+    border: 2px solid #0f1115;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #007bff;
+}
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #343a40 #0f1115;
+}
+  
   /* ── NAV ── */
   nav {
     position: sticky; top: 0; z-index: 100;
@@ -49,7 +70,7 @@
  
   /* ── HERO ── */
   #hero {
-    background: #fff;
+    background: var(--blue-light);
     color: var(--text); padding: 70px 5% 60px;
     display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
     min-height: 420px; position: relative; overflow: hidden;
