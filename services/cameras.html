@@ -669,36 +669,81 @@ button {
  
 <a href="https://wa.me/5542991529344" class="whatsapp-float" title="WhatsApp">💬</a>
 
-  <script>
-  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
-
+<script>
+  // Menu Mobile
+  function closeMobileMenu() { 
+    document.getElementById('mobileMenu').classList.remove('open'); 
+  }
+ 
+  // Animação de Surgir (REVEAL) - Essencial para o site não ficar invisível
   const obs = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); });
+    entries.forEach((e, i) => { 
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); 
+    });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-function toggleFaq(btn) {
+ 
+  // Lógica das Perguntas Frequentes (FAQ) corrigida
+  function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = btn.classList.contains('open');
-
-    // 1. Fecha todas as outras perguntas antes de abrir a atual
-    document.querySelectorAll('.faq-q').forEach(q => {
-        q.classList.remove('open');
-        q.nextElementSibling.classList.remove('open');
+    
+    // Fecha todas antes de abrir a nova
+    document.querySelectorAll('.faq-q').forEach(b => { 
+      b.classList.remove('open'); 
+      b.nextElementSibling.classList.remove('open'); 
     });
-
-    // 2. Se a clicada não estava aberta, abre ela agora
-    if (!isOpen) {
-        btn.classList.add('open');
-        answer.classList.add('open');
+    
+    // Abre a que foi clicada
+    if (!isOpen) { 
+      btn.classList.add('open'); 
+      answer.classList.add('open'); 
     }
-}
+  }
+ 
+  // Smooth scroll para âncora interna
+  const oqueLink = document.querySelector('a[href="#oque"]');
+  if (oqueLink) {
+    oqueLink.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('oque').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
 
-  document.querySelector('a[href="#oque"]').addEventListener('click', e => {
-    e.preventDefault();
-    document.getElementById('oque').scrollIntoView({ behavior: 'smooth' });
-});
-  
+  // Lógica do Carrossel de Imagens
+  const slide = document.querySelector('.carousel-slide');
+  const images = document.querySelectorAll('.carousel-slide img');
+  const dots = document.querySelectorAll('.dot');
+
+  let counter = 0;
+  const size = 100;
+
+  function updateCarousel() {
+      if (!slide || images.length === 0) return;
+      slide.style.transform = 'translateX(' + (-size * counter) + '%)';
+      
+      dots.forEach(dot => dot.classList.remove('active'));
+      if (dots[counter]) dots[counter].classList.add('active');
+  }
+
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+        if (counter >= images.length - 1) counter = -1;
+        counter++;
+        updateCarousel();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+        if (counter <= 0) counter = images.length;
+        counter--;
+        updateCarousel();
+    });
+  }
 </script>
 </body>
 </html>
