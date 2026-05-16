@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Câmeras de Segurança – N1 Protect</title>
 <link rel="icon" type="image/png" href="../favicon.png">
-  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -118,65 +119,58 @@
   .cam-thumb-dot { position:absolute; top:4px; right:4px; width:4px; height:4px; background:#ff4444; border-radius:50%; animation: blink 2.5s infinite; }
 
 
-/* CONTAINER PRINCIPAL DO CARROSSEL */
 .carousel-container {
-    position: relative;
-    width: 100%;
-    max-width: 600px; /* Ou o tamanho que você definiu para a imagem */
-    margin: 0 auto;
-    overflow: hidden; /* Corta APENAS o que sai das bordas deste container */
-    border-radius: 12px;
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Tamanho do seu carrossel */
+  margin: auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: var(--shadow-card);
 }
 
-/* A FAIXA QUE DESLIZA AS IMAGENS */
 .carousel-slide {
-    display: flex;
-    width: 100%;
-    transition: transform 0.5s ease-in-out;
+  display: flex;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
 }
 
-/* AS IMAGENS DENTRO DO CARROSSEL */
-.carousel-slide img {
-    width: 100%;
-    height: auto;
-    display: block;
-    flex-shrink: 0; /* Impede que as imagens se espremam */
+/* Garante que os Canvas fiquem lado a lado ocupando 100% do slide */
+.carousel-canvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1; /* Mantém quadrado idêntico ao efeito original */
+  display: block;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
-/* BOTÕES DE SETA (Z-INDEX AJUSTADO) */
-.carousel-container button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.4);
-    color: #ffffff;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.2rem;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-}
-
-.carousel-container button:hover {
-    background: rgba(0, 0, 0, 0.7);
+.carousel-container #prevBtn, 
+.carousel-container #nextBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #prevBtn { left: 10px; }
 #nextBtn { right: 10px; }
 
-/* PONTOS INDICADORES (FORA DO CONTAINER SE VOCÊ QUISER) */
 .carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 15px 0;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0 0 0;
 }
 
 .dot {
@@ -426,18 +420,18 @@
   <div class="hero-visual">
 
     <div class="carousel-container">
-    <div class="carousel-slide">
-        <img src="../images/camera-n1.png" alt="Câmera 1">
-        <img src="../images/camera-n.png" alt="Câmera 2">
-    </div>
+  <div class="carousel-slide">
+    <canvas id="canvas-cam1" class="carousel-canvas"></canvas>
+    <canvas id="canvas-cam2" class="carousel-canvas"></canvas>
+  </div>
 
-    <button id="prevBtn">&#10094;</button>
-    <button id="nextBtn">&#10095;</button>
+  <button id="prevBtn">&#10094;</button>
+  <button id="nextBtn">&#10095;</button>
 
-    <div class="carousel-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-    </div>
+  <div class="carousel-dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+  </div>
 </div>
        
   </div>
@@ -724,76 +718,142 @@
   });
 
   // CARROSSEL
+  // 1. MENU MOBILE E REVEAL
+  function closeMobileMenu() { 
+    const menu = document.getElementById('mobileMenu');
+    if (menu) menu.classList.remove('open'); 
+  }
+ 
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => { 
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); 
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+ 
+  // 2. PERGUNTAS FREQUENTES (FAQ)
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    if (!answer) return;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-q').forEach(b => { 
+      b.classList.remove('open'); 
+      if (b.nextElementSibling) b.nextElementSibling.classList.remove('open'); 
+    });
+    if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+  }
+
+  // 3. FUNÇÃO QUE INSTANCIA O EFEITO DO CANVAS
+  function setupCanvasEffect(canvasId, imageSrc) {
+    const c = document.getElementById(canvasId);
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    const cw = 2000;
+    const ch = cw; 
+    c.width = c.height = cw;
+
+    let cRect = c.getBoundingClientRect();
+    let sx = cw / cRect.width;
+    let sy = ch / cRect.height;
+
+    const T = Math.PI * 2;
+    const m = { x:cw/2, y:ch/2, s:1.5, x2:cw/2, y2:ch/2 };
+    const xTo = gsap.quickTo(m, "x", {duration:1, ease:"expo"});
+    const yTo = gsap.quickTo(m, "y", {duration:1, ease:"expo"});
+    const sTo = gsap.quickTo(m, "s", {duration:2, ease:"power2"});
+    let boxes = [];
+
+    const props = { boxSize: 123, fade: false, dots: true, dotColor: '#ffffff' };
+    ctx.fillStyle = props.dotColor;
+
+    const img = new Image();
+    img.src = imageSrc;
+    img.onload = () => {
+      for (let x=0; x<=cw; x+=props.boxSize) { 
+        for (let y=0; y<=ch; y+=props.boxSize) boxes.push({ x, y, d:0, s:0 });
+      }
+      gsap.ticker.add(update);
+    };
+
+    function update(){
+      const d = Math.hypot((m.x-m.x2),(m.y-m.y2));
+      sTo( d/cw*2 );
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(img, 0, 0, cw, ch, 0, 0, cw, ch);
+      boxes.forEach(drawImg);
+      if (props.dots) boxes.forEach(drawDots);
+    }
+
+    function drawImg(box){
+      box.d = Math.hypot((box.x-m.x),(box.y-m.y));
+      box.s = 1 - gsap.utils.clamp(0, 1, box.d/cw/m.s);
+      if (box.s<0.001) return;
+      let boxScaled = props.boxSize*(box.s);
+      ctx.drawImage(img, box.x+boxScaled/2, box.y+boxScaled/2, props.boxSize-boxScaled, props.boxSize-boxScaled, box.x, box.y, props.boxSize, props.boxSize);
+    }
+
+    function drawDots(box){
+      ctx.beginPath();
+      ctx.arc(box.x, box.y, props.boxSize*0.15*box.s, 0, T);
+      ctx.fill();
+    }
+
+    c.addEventListener('pointermove', (e)=> {
+      cRect = c.getBoundingClientRect();
+      sx = cw / cRect.width;
+      sy = ch / cRect.height;
+      m.x2 = (e.clientX - cRect.left) * sx;
+      m.y2 = (e.clientY - cRect.top) * sy;
+      xTo(m.x2);
+      yTo(m.y2);
+    });
+  }
+
+  // Ativa o efeito passando os caminhos das imagens locais da N1 Protect
+  setupCanvasEffect('canvas-cam1', '../images/camera-n1.png');
+  setupCanvasEffect('canvas-cam2', '../images/camera-n.png');
+
+  // 4. LÓGICA E AUTOPLAY DO CARROSSEL
   const slide = document.querySelector('.carousel-slide');
-  const images = document.querySelectorAll('.carousel-slide img');
+  const canvases = document.querySelectorAll('.carousel-canvas');
   const dots = document.querySelectorAll('.dot');
-  const container = document.querySelector('.carousel-container'); // Seleciona o container para detetar o rato
+  const container = document.querySelector('.carousel-container');
 
   let counter = 0;
   const size = 100;
-  let autoplayTimer = null; // Guarda o temporizador do carrossel
+  let autoplayTimer = null;
 
   function updateCarousel() {
-      if (!slide || images.length === 0) return;
+      if (!slide || canvases.length === 0) return;
       slide.style.transform = 'translateX(' + (-size * counter) + '%)';
-      
       dots.forEach(dot => dot.classList.remove('active'));
       if (dots[counter]) dots[counter].classList.add('active');
   }
 
   function nextImage() {
-      if (images.length === 0) return;
-      if (counter >= images.length - 1) {
-          counter = 0;
-      } else {
-          counter++;
-      }
+      if (canvases.length === 0) return;
+      counter = (counter >= canvases.length - 1) ? 0 : counter + 1;
       updateCarousel();
   }
 
   function prevImage() {
-      if (images.length === 0) return;
-      if (counter <= 0) {
-          counter = images.length - 1;
-      } else {
-          counter--;
-      }
+      if (canvases.length === 0) return;
+      counter = (counter <= 0) ? canvases.length - 1 : counter - 1;
       updateCarousel();
   }
 
-  // Funções para controlar o temporizador automático
-  function startAutoplay() {
-      // Muda de imagem a cada 4000 milissegundos (4 segundos)
-      autoplayTimer = setInterval(nextImage, 4000); 
-  }
+  function startAutoplay() { autoplayTimer = setInterval(nextImage, 4000); }
+  function stopAutoplay() { clearInterval(autoplayTimer); }
 
-  function stopAutoplay() {
-      clearInterval(autoplayTimer);
-  }
-
-  // Ouvintes de eventos para os botões manuais
   const nextBtn = document.getElementById('nextBtn');
   const prevBtn = document.getElementById('prevBtn');
+  if (nextBtn) nextBtn.addEventListener('click', nextImage);
+  if (prevBtn) prevBtn.addEventListener('click', prevImage);
 
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-        nextImage();
-    });
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-        prevImage();
-    });
-  }
-
-  // Eventos para pausar ao passar o rato (Apenas se o container existir)
   if (container) {
-      container.addEventListener('mouseenter', stopAutoplay); // Pausa quando o rato entra
-      container.addEventListener('mouseleave', startAutoplay); // Retoma quando o rato sai
+      container.addEventListener('mouseenter', stopAutoplay);
+      container.addEventListener('mouseleave', startAutoplay);
   }
-
-  // Inicia o carrossel automático assim que a página carrega
   startAutoplay();
   
 </script>
