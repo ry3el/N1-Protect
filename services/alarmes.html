@@ -701,23 +701,101 @@
 
 <script>
   function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
-
+ 
+  // REVEAL
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
+  
+  // FAQ
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = btn.classList.contains('open');
     document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
     if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
   }
-
+ 
+  // Smooth scroll para ancora interna
   document.querySelector('a[href="#oque"]').addEventListener('click', e => {
     e.preventDefault();
     document.getElementById('oque').scrollIntoView({ behavior: 'smooth' });
   });
+
+  // CARROSSEL
+// ── CARROSSEL DE IMAGENS COM TRANSIÇÃO AUTOMÁTICA ──
+  const slide = document.querySelector('.carousel-slide');
+  const images = document.querySelectorAll('.carousel-slide img');
+  const dots = document.querySelectorAll('.dot');
+  const container = document.querySelector('.carousel-container'); // Seleciona o container para detetar o rato
+
+  let counter = 0;
+  const size = 100;
+  let autoplayTimer = null; // Guarda o temporizador do carrossel
+
+  function updateCarousel() {
+      if (!slide || images.length === 0) return;
+      slide.style.transform = 'translateX(' + (-size * counter) + '%)';
+      
+      dots.forEach(dot => dot.classList.remove('active'));
+      if (dots[counter]) dots[counter].classList.add('active');
+  }
+
+  function nextImage() {
+      if (images.length === 0) return;
+      if (counter >= images.length - 1) {
+          counter = 0;
+      } else {
+          counter++;
+      }
+      updateCarousel();
+  }
+
+  function prevImage() {
+      if (images.length === 0) return;
+      if (counter <= 0) {
+          counter = images.length - 1;
+      } else {
+          counter--;
+      }
+      updateCarousel();
+  }
+
+  // Funções para controlar o temporizador automático
+  function startAutoplay() {
+      // Muda de imagem a cada 4000 milissegundos (4 segundos)
+      autoplayTimer = setInterval(nextImage, 4000); 
+  }
+
+  function stopAutoplay() {
+      clearInterval(autoplayTimer);
+  }
+
+  // Ouvintes de eventos para os botões manuais
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+        nextImage();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+        prevImage();
+    });
+  }
+
+  // Eventos para pausar ao passar o rato (Apenas se o container existir)
+  if (container) {
+      container.addEventListener('mouseenter', stopAutoplay); // Pausa quando o rato entra
+      container.addEventListener('mouseleave', startAutoplay); // Retoma quando o rato sai
+  }
+
+  // Inicia o carrossel automático assim que a página carrega
+  startAutoplay();
+  
 </script>
 </body>
 </html>
