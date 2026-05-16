@@ -718,12 +718,13 @@
   });
 
   // CARROSSEL
-  // 1. MENU MOBILE E REVEAL
+// 1. MENU MOBILE
   function closeMobileMenu() { 
     const menu = document.getElementById('mobileMenu');
     if (menu) menu.classList.remove('open'); 
   }
  
+  // 2. ANIMAÇÃO DE SURGIR (REVEAL) - Deixamos apenas UMA declaração aqui
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => { 
       if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60); 
@@ -731,7 +732,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
  
-  // 2. PERGUNTAS FREQUENTES (FAQ)
+  // 3. PERGUNTAS FREQUENTES (FAQ)
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     if (!answer) return;
@@ -743,7 +744,7 @@
     if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
   }
 
-  // 3. FUNÇÃO QUE INSTANCIA O EFEITO DO CANVAS
+  // 4. FUNÇÃO DO EFEITO INTERATIVO DO CANVAS
   function setupCanvasEffect(canvasId, imageSrc) {
     const c = document.getElementById(canvasId);
     if (!c) return;
@@ -809,11 +810,11 @@
     });
   }
 
-  // Ativa o efeito passando os caminhos das imagens locais da N1 Protect
+  // Ativando os efeitos nas imagens locais
   setupCanvasEffect('canvas-cam1', '../images/camera-n1.png');
   setupCanvasEffect('canvas-cam2', '../images/camera-n.png');
 
-  // 4. LÓGICA E AUTOPLAY DO CARROSSEL
+  // 5. LÓGICA E AUTOPLAY DO CARROSSEL
   const slide = document.querySelector('.carousel-slide');
   const canvases = document.querySelectorAll('.carousel-canvas');
   const dots = document.querySelectorAll('.dot');
