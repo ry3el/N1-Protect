@@ -136,7 +136,7 @@
   }
 
 /* FORÇANDO O CANVAS A PREENCHER TODO O ESPAÇO SEM VAZAMENTO LATERAL */
-.carousel-slide img {
+.carousel-slide canvas {
     width: 100%;
     height: auto;
     display: block;
@@ -429,18 +429,19 @@
 
     <div class="carousel-container">
       <div class="carousel-slide">
-        <img src="../images/camera-n1.png" alt="Câmera 1">
-        <img src="../images/camera-n.png" alt="Câmera 2">
+          <canvas id="canvas-cam1" class="carousel-canvas"></canvas>
+          <canvas id="canvas-cam2" class="carousel-canvas"></canvas>
       </div>
 
       <button id="prevBtn">&#10094;</button>
       <button id="nextBtn">&#10095;</button>
 
       <div class="carousel-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
+          <span class="dot active"></span>
+          <span class="dot"></span>
       </div>
     </div>
+  </div>
        
   </div>
 </section>
@@ -748,7 +749,7 @@ const obs = new IntersectionObserver(entries => {
     if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
   }
 
-  // 4. FUNÇÃO DO EFEITO INTERATIVO DO CANVAS
+// 4. FUNÇÃO DO EFEITO INTERATIVO DO CANVAS (CORRIGIDA PARA PREENCHIMENTO TOTAL)
   function setupCanvasEffect(canvasId, imageSrc) {
     const c = document.getElementById(canvasId);
     if (!c) return;
@@ -784,17 +785,46 @@ const obs = new IntersectionObserver(entries => {
       const d = Math.hypot((m.x-m.x2),(m.y-m.y2));
       sTo( d/cw*2 );
       ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, 0, 0, cw, ch, 0, 0, cw, ch);
-      boxes.forEach(drawImg);
+      
+      // Ajuste de proporção para preenchimento total (Simula o object-fit: cover)
+      let imgW = img.width;
+      let imgH = img.height;
+      let imgAspect = imgW / imgH;
+      let canvasAspect = cw / ch;
+      let renderW, renderH, renderX, renderY;
+
+      if (imgAspect > canvasAspect) {
+        renderH = imgH;
+        renderW = imgH * canvasAspect;
+        renderX = (imgW - renderW) / 2;
+        renderY = 0;
+      } else {
+        renderW = imgW;
+        renderH = imgW / canvasAspect;
+        renderX = 0;
+        renderY = (imgH - renderH) / 2;
+      }
+
+      // Desenha o fundo preenchendo o canvas completamente
+      ctx.drawImage(img, renderX, renderY, renderW, renderH, 0, 0, cw, ch);
+      
+      boxes.forEach((box) => drawImg(box, renderX, renderY, renderW, renderH));
       if (props.dots) boxes.forEach(drawDots);
     }
 
-    function drawImg(box){
+    function drawImg(box, rx, ry, rw, rh){
       box.d = Math.hypot((box.x-m.x),(box.y-m.y));
       box.s = 1 - gsap.utils.clamp(0, 1, box.d/cw/m.s);
       if (box.s<0.001) return;
       let boxScaled = props.boxSize*(box.s);
-      ctx.drawImage(img, box.x+boxScaled/2, box.y+boxScaled/2, props.boxSize-boxScaled, props.boxSize-boxScaled, box.x, box.y, props.boxSize, props.boxSize);
+      
+      // Mapeia a posição do corte na imagem proporcional ao preenchimento total
+      let srcX = rx + (box.x / cw) * rw;
+      let srcY = ry + (box.y / ch) * rh;
+      let srcW = (props.boxSize / cw) * rw;
+      let srcH = (props.boxSize / ch) * rh;
+
+      ctx.drawImage(img, srcX + (srcW * box.s / 2), srcY + (srcH * box.s / 2), srcW - (srcW * box.s), srcH - (srcH * box.s), box.x, box.y, props.boxSize, props.boxSize);
     }
 
     function drawDots(box){
