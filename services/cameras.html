@@ -119,15 +119,14 @@
   .cam-thumb-dot { position:absolute; top:4px; right:4px; width:4px; height:4px; background:#ff4444; border-radius:50%; animation: blink 2.5s infinite; }
 
 
-.carousel-container {
+  .carousel-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 16/13;
-    background: rgba(0, 0, 0, 0.22);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 400px; /* Alinhado com o tamanho máximo das suas fotos */
+    margin: auto;
+    overflow: hidden; /* Garante o corte perfeito nas bordas */
     border-radius: 10px;
-    padding: 16px;
-    overflow: hidden;
+    box-shadow: var(--shadow-card);
   }
 
   .carousel-slide {
