@@ -173,28 +173,25 @@
   .carousel-container #nextBtn { right: 10px; }
 
   /* ESTILO DOS PONTOS INDICADORES */
-  .carousel-dots {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+.carousel-dots {
     display: flex;
+    justify-content: center;
     gap: 8px;
+    padding: 12px 0 0 0;
   }
 
   .dot {
     height: 10px;
     width: 10px;
-    background-color: rgba(255,255,255,0.4);
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     display: inline-block;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s;
   }
 
   .dot.active {
-    background-color: var(--white);
+    background-color: var(--blue); /* Usa o azul padrão da sua marca */
   }
 
 /* FORÇAR O FAQ A APARECER (GARANTIA) */
