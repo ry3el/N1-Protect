@@ -57,7 +57,7 @@
   .logo-text { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--text); }
   .logo-text span { color: var(--blue); }
   .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
-  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
+  .nav-links a {display: flex;text-decoration: none;color: var(--gray);font-size: 0.88rem;font-weight: 600;transition: color 0.2s;}
   .nav-links a:hover { color: var(--blue); }
   .btn-nav {background: var(--blue);color: var(--white) !important;padding: 8px 18px;border-radius: 150px;transition: background 0.2s !important;}
   .btn-nav:hover { background: var(--blue-dark) !important; }
@@ -70,6 +70,7 @@
     background: linear-gradient(135deg, var(--white) 0%, #a3c9ff 60%, #5b9bf8 100%);
     color: var(--text);
     padding: 70px 5% 60px;
+    border-radius: 0 0 26px 26px;
     display: flex;
     align-items: center;
     gap: 4rem;
@@ -357,12 +358,13 @@
   .whatsapp-float:hover { transform: scale(1.08); }
  
   /* ── MOBILE MENU ── */
-  .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.98); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 1.8rem; }
+  .mobile-menu {display: none;position: fixed;inset: 0;background: rgba(255,255,255,0.98);z-index: 200;flex-direction: column;align-items: center;justify-content: center;gap: 20px;}
   .mobile-menu.open { display: flex; }
-  .mobile-menu a { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu a {font-family: 'Montserrat', sans-serif;border: 1px solid rgba(0,0,0,0.3);width: 90%;padding: 13px 10px;border-radius: 150px;font-size: 16px;font-weight: 600;color: var(--text);text-decoration: none;transition: color 0.2s;}
   .mobile-menu a:hover { color: var(--blue); }
-  .mobile-close { position: absolute; top: 20px; right: 24px; font-size: 1.6rem; background: none; border: none; cursor: pointer; color: var(--gray); }
- 
+  .mobile-close {transition:transform 0.25s; position: absolute;border: 1px solid rgba(0,0,0,0.3);border-radius: 16px;width: 40px;height: 40px;top: 20px;right: 24px;font-size: 22px;background: none;cursor: pointer;color: var(--gray);}
+  .mobile-close:hover {transform: scale(1.1)}
+
   /* ── REVEAL ── */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: none; }
